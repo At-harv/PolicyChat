@@ -120,3 +120,24 @@ export const getDashboard = async (req, res) => {
     res.status(500).json({ message: error.message });
   }
 };
+
+// ------------------ GET POLICY BY ID ------------------
+export const getPolicyById = async (req, res) => {
+  try {
+    const { id } = req.params;
+
+    const policy = await Policy.findOne({
+      where: { id, userId: req.user.id }, // ensure user can only fetch their own
+    });
+
+    if (!policy) {
+      return res.status(404).json({ message: "Policy not found" });
+    }
+
+    res.json({ message: "Policy retrieved ✅", policy });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: error.message });
+  }
+};
+

@@ -7,6 +7,7 @@ import { sequelize } from "./config/db.js";
 import { User } from "./models/User.js";
 import path from "path";
 import { Policy } from "./models/Policy.js";
+import chatbotRoutes from "./routes/chatbotRoutes.js";
 
 const startServer = async () => {
   try {
@@ -39,6 +40,7 @@ app.use("/uploads", express.static(path.join(process.cwd(), "uploads")));
 // Routes
 app.use("/api/auth", authRoutes);
 app.use("/api/policies", policyRoutes);
+app.use("/api/chatbot", chatbotRoutes);
 
 app.listen(process.env.PORT || 8000, () =>
   console.log(`Server running on port ${process.env.PORT || 8000}`)
